@@ -217,7 +217,7 @@ function SearchPageClient() {
     e.preventDefault();
     const trimmed = searchQuery.trim().replace(/\s+/g, ' ');
     if (!trimmed) return;
-    const normalized = converter(trimmed); // 加這一行就好
+    const normalized = converter.convertSync(trimmed); // 加這一行就好
 
     // 回显搜索框
     setSearchQuery(trimmed);
