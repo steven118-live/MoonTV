@@ -59,6 +59,12 @@ function SearchPageClient() {
       const arr = map.get(key) || [];
       arr.push(item);
       map.set(key, arr);
+      const dictGroup = getDictGroup(); // could be undefined
+
+      if (Array.isArray(dictGroup)) {
+        dictGroup.forEach(...);
+      }
+
     });
     return Array.from(map.entries()).sort((a, b) => {
       // 优先排序：标题与搜索词完全一致的排在前面
