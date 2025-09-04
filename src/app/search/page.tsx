@@ -17,8 +17,6 @@ import { yellowWords } from '@/lib/yellow';
 
 import PageLayout from '@/components/PageLayout';
 import VideoCard from '@/components/VideoCard';
-import { Converter } from 'opencc-js';
-const converter = Converter({ from: 't', to: 's' }); // 繁轉簡
 
 function SearchPageClient() {
   // 搜索历史
@@ -59,11 +57,6 @@ function SearchPageClient() {
       const arr = map.get(key) || [];
       arr.push(item);
       map.set(key, arr);
-      const dictGroup = getDictGroup(); // or however you're loading it
-      const normalizedDict = {};
-      dictGroup.forEach(({ key, value }) => {
-        normalizedDict[key] = normalize(value);
-      });
     });
     return Array.from(map.entries()).sort((a, b) => {
       // 优先排序：标题与搜索词完全一致的排在前面
@@ -222,7 +215,7 @@ function SearchPageClient() {
     e.preventDefault();
     const trimmed = searchQuery.trim().replace(/\s+/g, ' ');
     if (!trimmed) return;
-    const normalized = converter.convertSync(trimmed); // 加這一行就好
+
 
     // 回显搜索框
     setSearchQuery(trimmed);
