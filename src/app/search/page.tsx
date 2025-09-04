@@ -59,6 +59,7 @@ function SearchPageClient() {
       const arr = map.get(key) || [];
       arr.push(item);
       map.set(key, arr);
+      const dictGroup = getDictGroup(); // or however you're loading it
       const normalizedDict = {};
       dictGroup.forEach(({ key, value }) => {
         normalizedDict[key] = normalize(value);
