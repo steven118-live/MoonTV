@@ -222,12 +222,9 @@ function SearchPageClient() {
     setIsLoading(true);
     setShowResults(true);
 
-    //router.push(`/search?q=${encodeURIComponent(trimmed)}`);
+    router.push(`/search?q=${encodeURIComponent(trimmed)}`);
     // 直接发请求
-    //fetchSearchResults(trimmed);
-    router.push(`/search?q=${encodeURIComponent(normalized)}`);
-    // 直接发请求
-    fetchSearchResults(normalized);
+    fetchSearchResults(trimmed);
 
     // 保存到搜索历史 (事件监听会自动更新界面)
     addSearchHistory(trimmed);
