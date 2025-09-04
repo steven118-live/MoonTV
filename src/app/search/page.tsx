@@ -17,6 +17,8 @@ import { yellowWords } from '@/lib/yellow';
 
 import PageLayout from '@/components/PageLayout';
 import VideoCard from '@/components/VideoCard';
+import { OpenCC } from 'opencc-js';
+const converter = OpenCC.Converter({ from: 't', to: 's' }); // 繁轉簡
 
 function SearchPageClient() {
   // 搜索历史
@@ -215,15 +217,19 @@ function SearchPageClient() {
     e.preventDefault();
     const trimmed = searchQuery.trim().replace(/\s+/g, ' ');
     if (!trimmed) return;
+    const normalized = converter(trimmed); // 加這一行就好
 
     // 回显搜索框
     setSearchQuery(trimmed);
     setIsLoading(true);
     setShowResults(true);
 
-    router.push(`/search?q=${encodeURIComponent(trimmed)}`);
+    //router.push(`/search?q=${encodeURIComponent(trimmed)}`);
     // 直接发请求
-    fetchSearchResults(trimmed);
+    //fetchSearchResults(trimmed);
+    router.push(`/search?q=${encodeURIComponent(normalized)}`);
+    // 直接发请求
+    fetchSearchResults(normalized);
 
     // 保存到搜索历史 (事件监听会自动更新界面)
     addSearchHistory(trimmed);
