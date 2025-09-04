@@ -17,8 +17,8 @@ import { yellowWords } from '@/lib/yellow';
 
 import PageLayout from '@/components/PageLayout';
 import VideoCard from '@/components/VideoCard';
-import { OpenCC } from 'opencc-js';
-const converter = OpenCC.Converter({ from: 't', to: 's' }); // 繁轉簡
+import { Converter } from 'opencc-js';
+const converter = Converter({ from: 't', to: 's' }); // 繁轉簡
 
 function SearchPageClient() {
   // 搜索历史
