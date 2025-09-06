@@ -12,6 +12,7 @@ import {
   getSearchHistory,
   subscribeToDataUpdates,
 } from '@/lib/db.client';
+import { convertText } from '@/lib/opencc-wrapper';
 import { SearchResult } from '@/lib/types';
 import { yellowWords } from '@/lib/yellow';
 
@@ -213,9 +214,11 @@ function SearchPageClient() {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    const trimmed = searchQuery.trim().replace(/\s+/g, ' ');
-    if (!trimmed) return;
-
+    const trimmedd = searchQuery.trim().replace(/\s+/g, ' ');
+    if (!trimmedd) return;
+    const trimmed = convertText(trimmedd); // 自動判斷並轉換
+    //console.log('原始輸入:', trimmedd);
+    //console.log('轉換後:', trimmed);
 
     // 回显搜索框
     setSearchQuery(trimmed);
