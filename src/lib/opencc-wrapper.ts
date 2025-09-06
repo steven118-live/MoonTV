@@ -1,20 +1,22 @@
-import { Converter } from 'opencc-js';
+import * as OpenCCJS from 'opencc-js';
 
-type ScriptType = 'cn' | 'tw' | 'mixed';
-
-export const detectScript = (text: string): ScriptType => {
-  const hasSimplified = /[\u4e00-\u9fa5]/.test(text); // Â²Åé±`¥Î°Ï
-  const hasTraditional = /[\u3400-\u4DBF\uF900-\uFAFF]/.test(text); // ÁcÅé±`¥Î°Ï
-  if (hasSimplified && hasTraditional) return 'mixed';
-  if (hasTraditional) return 'tw';
-  return 'cn';
+type Converter = {
+  convertPromise: (text: string) => Promise<string>;
 };
 
-export const convertText = (text: string): string => {
-  const script = detectScript(text);
-  const converter = Converter({
-    from: script === 'tw' ? 'tw' : 'cn',
-    to: script === 'tw' ? 'cn' : 'tw',
-  });
-  return converter.convertSync(text);
-};
+let s2tConverter: Converter | null = null;
+let t2sConverter: Converter | null = null;
+
+export async function convertToTraditional(text: string): Promise<string> {
+  if (!s2tConverter) {
+    s2tConverter = await OpenCCJS.Converter({ from: 's2t.json' });
+  }
+  return s2tConverter.convertPromise(text);
+}
+
+export async function convertToSimplified(text: string): Promise<string> {
+  if (!t2sConverter) {
+    t2sConverter = await OpenCCJS.Converter({ from: 't2s.json' });
+  }
+  return t2sConverter.convertPromise(text);
+}

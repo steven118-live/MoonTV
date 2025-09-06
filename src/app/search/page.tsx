@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */
 'use client';
-
+export const runtime = 'nodejs';
 import { ChevronUp, Search, X } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useMemo, useState } from 'react';
@@ -12,7 +12,8 @@ import {
   getSearchHistory,
   subscribeToDataUpdates,
 } from '@/lib/db.client';
-import { convertText } from '@/lib/opencc-wrapper';
+import { convertToTraditional } from '@/lib/opencc-wrapper'; //For S2T
+import { convertToSimplified } from '@/lib/opencc-wrapper'; //For T2S
 import { SearchResult } from '@/lib/types';
 import { yellowWords } from '@/lib/yellow';
 
@@ -212,13 +213,18 @@ function SearchPageClient() {
     }
   };
 
-  const handleSearch = (e: React.FormEvent) => {
+  const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
     const trimmedd = searchQuery.trim().replace(/\s+/g, ' ');
     if (!trimmedd) return;
-    const trimmed = convertText(trimmedd); // 自動判斷並轉換
-    //console.log('原始輸入:', trimmedd);
-    //console.log('轉換後:', trimmed);
+
+    let trimmed: string;
+    try {
+      trimmed = await convertToSimplified(trimmedd);
+    } catch (err) {
+      console.error('繁簡轉換失敗:', err);
+      trimmed = trimmedd;
+    }
 
     // 回显搜索框
     setSearchQuery(trimmed);
