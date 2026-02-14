@@ -57,9 +57,8 @@
       "detail": "https://jszyapi.com"
     },
     "dbzy": {
-      "api": "https://caiji.dbzy5.com/api.php/provide/vod",
-      "name": "豆瓣资源",
-      "detail": "https://dbzy.tv"
+      "api": "https://dbzy.tv/api.php/provide/vod",
+      "name": "豆瓣资源"
     },
     "mozhua": {
       "api": "https://mozhuazy.com/api.php/provide/vod",
