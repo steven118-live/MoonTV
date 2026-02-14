@@ -101,6 +101,10 @@ export default async function RootLayout({
         />
         {/* 将配置序列化后直接写入脚本，浏览器端可通过 window.RUNTIME_CONFIG 获取 */}
         {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+        {/* 新增下面這一行，讓瀏覽器請求圖片時不帶 Referer，直接繞過豆瓣防盜鏈 */}
+        <meta name='referrer' content='no-referrer' />
+        
+        {/* 將配置序列化後直接寫入腳本 */}
         <script
           dangerouslySetInnerHTML={{
             __html: `window.RUNTIME_CONFIG = ${JSON.stringify(runtimeConfig)};`,
