@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
-export const runtime = 'nodejs'; // enable it when host on Vercel
-//export const runtime = 'edge'; //enable it when host on Cloudflare
+//export const runtime = 'nodejs'; // enable it when host on Vercel
+export const runtime = 'edge'; //enable it when host on Cloudflare
 
 // OrionTV image proxy handler
 export async function GET(request: Request) {
