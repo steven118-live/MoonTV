@@ -4,42 +4,26 @@ export async function GET(request: Request) {
   const html = '<meta name="moon">';
   const headers = new Headers();
 
-  // Basic HTTP metadata
   headers.set('Content-Type', 'text/html; charset=utf-8');
   headers.set('Content-Length', Buffer.from(html).length.toString());
   headers.set('Date', new Date().toUTCString());
   headers.set('Connection', 'keep-alive');
-
-  // Platform identity (safe, minimal)
   headers.set('Server', 'MoonTV-Edge');
-
-  // CDN and protocol simulation
   headers.set('Alt-Svc', 'h3=":443"; ma=86400');
   headers.set('CF-Cache-Status', 'DYNAMIC');
   headers.set('CF-Ray', crypto.randomUUID().slice(0, 16) + '-IAD');
-
-  // Security headers
   headers.set('Strict-Transport-Security', 'max-age=31536000');
   headers.set('X-Content-Type-Options', 'nosniff');
-
-  // Cache control
   headers.set('Cache-Control', 'no-store, no-cache, must-revalidate');
   headers.set('CDN-Cache-Control', 'public, s-maxage=15720000');
   headers.set('Vercel-CDN-Cache-Control', 'public, s-maxage=15720000');
-
-  // Expires header to avoid 1970 default
   headers.set('Expires', '0');
-
-  // Optional: speculation rules (VirusTotal expects it, safe to include)
   headers.set('Speculation-Rules', '/cdn-cgi/speculation');
-
-  // NEL / Report-To (Cloudflare-style, safe simulation)
   headers.set('NEL', JSON.stringify({
     report_to: 'cf-nel',
     max_age: 604800,
     success_fraction: 0.0,
   }));
-
   headers.set('Report-To', JSON.stringify({
     group: 'cf-nel',
     max_age: 604800,

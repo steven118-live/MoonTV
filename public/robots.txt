@@ -1,3 +1,5 @@
-# 禁止所有搜索引擎爬取
+User-agent: Googlebot
+Allow: /google592332143784ac10.html
+
 User-agent: *
 Disallow: /

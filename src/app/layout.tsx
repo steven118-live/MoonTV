@@ -25,11 +25,15 @@ export async function generateMetadata(): Promise<Metadata> {
     const config = await getConfig();
     siteName = config.SiteConfig.SiteName;
   }
-
+// google: 'x_T6ZQ1-6qdt30vdcL1AVFbPcUIQPls2BPyB4f1R6Sk', for https://moontv-ajr.pages.dev/
+// google: 'bYbmPejYsShQG8Qi7ff80_NwK2EuIGH0GHDWd6wbfXA', for https://moontv118.vercel.app/
   return {
     title: siteName,
     description: '影视聚合',
     manifest: '/manifest.json',
+    verification: {
+      google: 'x_T6ZQ1-6qdt30vdcL1AVFbPcUIQPls2BPyB4f1R6Sk'
+    },
   };
 }
 
